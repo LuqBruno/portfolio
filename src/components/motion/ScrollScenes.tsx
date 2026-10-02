@@ -140,6 +140,7 @@ export function ScrollScenes() {
           const pin = show.querySelector<HTMLElement>('[data-s="pin"]');
           const chapters = Array.from(show.querySelectorAll<HTMLElement>('[data-chapter]'));
           const subs = Array.from(show.querySelectorAll<HTMLElement>('[data-beat]'));
+          const shots = Array.from(show.querySelectorAll<HTMLElement>('[data-beats]'));
           const counter = show.querySelector<HTMLElement>('[data-s="current"]');
           const bar = show.querySelector<HTMLElement>('[data-s="bar"]');
           const live = show.querySelector<HTMLElement>('[data-s="live"]');
@@ -179,6 +180,7 @@ export function ScrollScenes() {
             if (beat === currentBeat) return;
             currentBeat = beat;
             subs.forEach((el) => el.toggleAttribute('data-current', Number(el.dataset.beat) === beat));
+            shots.forEach((el) => el.toggleAttribute('data-current', (el.dataset.beats ?? '').split(' ').includes(String(beat))));
             // Estados ilustrativos da esfera (capítulo do assistente)
             if (beat >= CHAPTER_START[1] && beat < CHAPTER_START[2]) {
               const state = (['ready', 'listening', 'thinking', 'speaking'] as const)[beat - CHAPTER_START[1]];

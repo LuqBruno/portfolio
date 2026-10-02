@@ -1,0 +1,49 @@
+.mark {
+  display: block;
+  height: 2.1rem;
+  width: auto;
+  aspect-ratio: 220 / 300;
+  fill: #8b5cf6;
+  overflow: visible;
+}
+
+.light {
+  fill: #fafafa;
+}
+
+.mark path {
+  transition: transform var(--dur-3) var(--ease-out);
+  transform-box: fill-box;
+}
+
+/* Revelação breve ao carregar: a haste sobe e o recorte do B entra em seguida */
+@media (prefers-reduced-motion: no-preference) {
+  :global(.js) .base {
+    animation: base-in 700ms var(--ease-out) 120ms both;
+    transform-origin: 50% 100%;
+  }
+
+  :global(.js) .cut {
+    animation: cut-in 700ms var(--ease-out) 320ms both;
+  }
+}
+
+@keyframes base-in {
+  from {
+    opacity: 0;
+    transform: translateY(14%) scaleY(0.88);
+  }
+}
+
+@keyframes cut-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark path {
+    transition: none;
+  }
+}

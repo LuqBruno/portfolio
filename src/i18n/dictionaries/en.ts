@@ -8,6 +8,7 @@ export const en: Dictionary = {
     ogAlt: 'Bruno Luque — Web Developer & Designer. Criciúma, SC — Brazil.',
   },
   a11y: {
+    homeLink: 'Bruno Luque — Home',
     skip: 'Skip to content',
     mainNav: 'Main navigation',
     openMenu: 'Open menu',

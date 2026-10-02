@@ -37,7 +37,7 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.7rem;
   font-family: var(--font-display);
   font-weight: 650;
   font-size: 1.05rem;
@@ -68,12 +68,17 @@
   align-items: flex-end;
 }
 
-.brandDot {
-  width: 0.32em;
-  height: 0.32em;
-  margin: 0 0 0.22em 0.12em;
-  border-radius: 50%;
-  background: var(--violet);
+.logo {
+  height: 2rem;
+  transition:
+    transform var(--dur-3) var(--ease-out),
+    filter var(--dur-3) var(--ease-out);
+}
+
+.brand:hover .logo,
+.brand:focus-visible .logo {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 4px 14px rgb(139 92 246 / 0.65));
 }
 
 /* Navegação desktop */

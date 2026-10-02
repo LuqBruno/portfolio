@@ -78,9 +78,19 @@ export function Showcase({ dict }: { dict: Dictionary }) {
     },
   ];
 
-  const fallback: Record<string, { image: ImageKey; alt: string; second?: { image: ImageKey; alt: string } }> = {
-    'case-marega': { image: 'work/marega-alice-desktop', alt: w.marega.altDesktop, second: { image: 'work/marega-alice-mobile', alt: w.marega.altMobile } },
-    'case-unesc': { image: 'work/unesc-admin', alt: w.unesc.altAdmin, second: { image: 'work/unesc-loja', alt: w.unesc.altStore } },
+  /** Telas reais por etapa (versão HTML: celular, sem WebGL ou movimento reduzido). */
+  type Frame = { image: ImageKey; alt: string; beats: number[]; portrait?: boolean };
+  const frames: Record<string, Frame[]> = {
+    'case-marega': [
+      { image: 'work/marega-alice-desktop', alt: w.marega.altDesktop, beats: [0, 1] },
+      { image: 'work/marega-home-team', alt: w.marega.altTeam, beats: [2] },
+      { image: 'work/marega-alice-mobile', alt: w.marega.altMobile, beats: [3], portrait: true },
+    ],
+    'case-unesc': [
+      { image: 'work/unesc-admin', alt: w.unesc.altAdmin, beats: [8, 9] },
+      { image: 'work/unesc-fornecedor', alt: w.unesc.altSupplier, beats: [10] },
+      { image: 'work/unesc-loja', alt: w.unesc.altStore, beats: [11] },
+    ],
   };
 
   return (
@@ -143,16 +153,18 @@ export function Showcase({ dict }: { dict: Dictionary }) {
                       <ParticleSphere t={a.orb} controlled compact />
                     </div>
                   ) : (
-                    <div className={styles.shots}>
-                      <div className={`${styles.window} fill-picture`}>
-                        <Picture name={fallback[ch.id].image} alt={fallback[ch.id].alt} sizes="(min-width: 1024px) 56vw, 92vw" />
-                      </div>
-                      {fallback[ch.id].second ? (
-                        <div className={`${styles.windowSmall} fill-picture`}>
-                          <Picture name={fallback[ch.id].second!.image} alt={fallback[ch.id].second!.alt} sizes="(min-width: 1024px) 18vw, 40vw" />
-                        </div>
-                      ) : null}
-                    </div>
+                    <ul className={styles.shots}>
+                      {frames[ch.id].map((f, k) => (
+                        <li
+                          key={f.image}
+                          className={`${styles.frame} ${f.portrait ? styles.portraitFrame : ''} fill-picture`}
+                          data-beats={f.beats.join(' ')}
+                          data-first={k === 0 || undefined}
+                        >
+                          <Picture name={f.image} alt={f.alt} sizes={f.portrait ? '(min-width: 1024px) 18vw, 40vw' : '(min-width: 1024px) 56vw, 96vw'} />
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </div>
               </article>

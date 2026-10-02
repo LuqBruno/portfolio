@@ -10,6 +10,7 @@ export const ptBR = {
     ogAlt: 'Bruno Luque — Desenvolvedor Web & Designer. Criciúma, SC — Brasil.',
   },
   a11y: {
+    homeLink: 'Bruno Luque — Início',
     skip: 'Pular para o conteúdo',
     mainNav: 'Navegação principal',
     openMenu: 'Abrir menu',

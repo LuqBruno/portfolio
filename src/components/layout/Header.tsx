@@ -5,6 +5,7 @@ import { locales, shortLabel, htmlLang, LOCALE_STORAGE_KEY, type Locale, type Se
 import type { Dictionary } from '@/i18n/types';
 import { asset } from '@/lib/env';
 import { Icon } from '@/components/ui/Icon';
+import { LogoMark } from '@/components/ui/Logo';
 import styles from './Header.module.css';
 
 type Props = {
@@ -22,20 +23,36 @@ const navItems: Array<{ id: SectionId; key: keyof Omit<Dictionary['nav'], 'cta'>
   { id: 'contato', key: 'contact' },
 ];
 
-/** Seção visível no momento — usada no destaque do menu e para preservar a âncora ao trocar de idioma. */
+/**
+ * Seção atual — destaque do menu e âncora preservada ao trocar de idioma.
+ * Vale a última seção cujo topo já passou de 40% da tela; no fim da página, a última seção
+ * (o Contato é curto e nunca chega ao meio da tela).
+ */
 function useActiveSection(): SectionId {
   const [active, setActive] = useState<SectionId>('inicio');
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-section]'));
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive((visible.target as HTMLElement).dataset.section as SectionId);
-      },
-      { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.01] },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const line = window.innerHeight * 0.4;
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      let current = sections[0];
+      for (const s of sections) if (s.getBoundingClientRect().top <= line) current = s;
+      if (atEnd) current = sections[sections.length - 1];
+      if (current) setActive(current.dataset.section as SectionId);
+    };
+    const request = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', request);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', request);
+      window.removeEventListener('resize', request);
+    };
   }, []);
   return active;
 }
@@ -149,9 +166,10 @@ export function Header({ locale, nav, a11y }: Props) {
   return (
     <header className={styles.header} data-scrolled={scrolled || undefined} data-open={open || undefined}>
       <div className={`container ${styles.bar}`}>
-        <a href="#inicio" className={styles.brand} onClick={() => open && close(false)}>
-          <span className={styles.brandName}>
-            Bruno Luque<span className={styles.brandDot} aria-hidden="true" />
+        <a href="#inicio" className={styles.brand} aria-label={a11y.homeLink} onClick={() => open && close(false)}>
+          <LogoMark className={styles.logo} />
+          <span className={styles.brandName} aria-hidden="true">
+            Bruno Luque
           </span>
         </a>
 

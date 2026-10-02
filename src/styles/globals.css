@@ -399,6 +399,12 @@ button {
 }
 
 /* Grão sutil para profundidade (decorativo) */
+@media (max-width: 859px), (pointer: coarse) {
+  .grain {
+    display: none;
+  }
+}
+
 .grain {
   position: fixed;
   inset: 0;

@@ -30,7 +30,7 @@ function webglAvailable(): boolean {
  * Canvas fixo e compartilhado pelas cenas 3D (Three.js carregado sob demanda).
  * - Desktop capaz: todas as cenas, resolução até 1,75×.
  * - Intermediário: todas as cenas, resolução reduzida e menos geometria.
- * - Celular/tablet: apenas as placas dos projetos, em resolução 1×.
+ * - Celular/tablet: sem cenas 3D (capturas em HTML, mais nítidas e leves).
  * - Movimento reduzido ou sem WebGL: nenhuma cena — ficam os quadros estáticos e as capturas.
  */
 export function StudioCanvas() {
@@ -64,8 +64,8 @@ export function StudioCanvas() {
       teardown();
       if (reduce.matches || !webglAvailable()) return;
       const tier = detectTier();
-      // Celular/tablet: só a apresentação de projetos (placas 3D), em resolução 1×
-      const wanted: ViewName[] = desktop.matches ? ['projects', 'about', 'contact'] : ['projects'];
+      // Celular/tablet: sem WebGL — capturas reais em HTML, maiores e mais leves
+      const wanted: ViewName[] = desktop.matches ? ['projects', 'about', 'contact'] : [];
       const hosts = wanted
         .map((name) => [name, document.querySelector<HTMLElement>(`[data-3d="${name}"]`)] as const)
         .filter((entry): entry is readonly [ViewName, HTMLElement] => !!entry[1]);

@@ -1,6 +1,7 @@
 import type { Dictionary } from '@/i18n/types';
 import { person } from '@/content/site';
 import { Icon } from '@/components/ui/Icon';
+import { LogoMark } from '@/components/ui/Logo';
 import styles from './Footer.module.css';
 
 export function Footer({ dict }: { dict: Dictionary }) {
@@ -17,7 +18,8 @@ export function Footer({ dict }: { dict: Dictionary }) {
       <div className={`container ${styles.inner}`}>
         <div className={styles.signature}>
           <p className={styles.name}>
-            Bruno Luque<span aria-hidden="true" className={styles.dot} />
+            <LogoMark className={styles.logo} />
+            Bruno Luque
           </p>
           <p className={styles.role}>{dict.footer.role}</p>
         </div>

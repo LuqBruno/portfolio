@@ -135,11 +135,18 @@ def build_og() -> None:
     ImageDraw.Draw(halo).ellipse((760, 70, 1240, 550), fill=(124, 58, 237, 40))
     halo = halo.filter(ImageFilter.GaussianBlur(90))
     base = Image.alpha_composite(base.convert("RGBA"), halo)
-    base.alpha_composite(particle_sphere(560, 4200), (700, 36))
     base = base.convert("RGB")
     lines = ImageDraw.Draw(base)
     for x in range(40, 1200, 160):
         lines.line((x, 0, x, 630), fill=(19, 18, 25))
+    logo = Image.open(SRC / "logo" / "logo-bruno-luque.png").convert("RGBA")
+    logo = logo.crop(logo.getbbox())
+    logo = logo.resize((round(logo.width * 400 / logo.height), 400), Image.LANCZOS)
+    glow2 = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    ImageDraw.Draw(glow2).ellipse((820, 130, 1100, 510), fill=(139, 92, 246, 70))
+    base = Image.alpha_composite(base.convert("RGBA"), glow2.filter(ImageFilter.GaussianBlur(60)))
+    base.alpha_composite(logo, (900 - logo.width // 2, 115))
+    base = base.convert("RGB")
 
     roles = {
         "pt-br": ("Desenvolvedor Web & Designer", "Criciúma, SC — Brasil"),

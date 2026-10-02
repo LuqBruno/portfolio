@@ -97,6 +97,8 @@ export function ParticleSphere({ t, controlled = false, compact = false }: { t: 
     if (!stage || !target || !fallbackTarget) return;
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    // Telas de toque / celulares: menos partículas e menor resolução (fluidez)
+    const light = window.matchMedia('(pointer: coarse), (max-width: 859px)').matches;
     let started = false;
     let stopped = false;
     let visible = false;
@@ -110,7 +112,7 @@ export function ParticleSphere({ t, controlled = false, compact = false }: { t: 
 
     const resize = () => {
       const rect = target.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, light ? 1.25 : 2);
       const w = Math.max(1, Math.round(rect.width * dpr));
       const h = Math.max(1, Math.round(rect.height * dpr));
       target.width = fallbackTarget.width = w;
@@ -157,7 +159,7 @@ export function ParticleSphere({ t, controlled = false, compact = false }: { t: 
         return;
       }
       setRenderer('canvas');
-      const count = 1800;
+      const count = light ? 900 : 1800;
       const points = Array.from({ length: count }, (_, i) => {
         const y = 1 - (2 * (i + 0.5)) / count;
         const r = Math.sqrt(1 - y * y);
@@ -244,7 +246,7 @@ export function ParticleSphere({ t, controlled = false, compact = false }: { t: 
         });
         loop((time) => {
           if (!device || stopped) return;
-          const count = reduce.matches ? 2500 : 10000;
+          const count = reduce.matches ? 2500 : light ? 4000 : 10000;
           device.queue.writeBuffer(buffer!, 0, new Float32Array([time, target.width, target.height, activity(time), reduce.matches ? 1 : 0, count, morph, 0]));
           const encoder = device.createCommandEncoder();
           const pass = encoder.beginRenderPass({

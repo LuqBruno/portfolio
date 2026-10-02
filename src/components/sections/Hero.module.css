@@ -766,8 +766,55 @@
     display: none;
   }
 
+  /* GPU móvel: vidro sem desfoque de fundo (mesmo aspecto, muito mais leve) */
+  .pane,
+  .orb {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .pane {
+    background: linear-gradient(155deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.012) 32%, rgb(14 12 22 / 0.72) 60%, rgb(8 8 11 / 0.85));
+  }
+
   .portrait {
     left: 56%;
     height: 80%;
+  }
+}
+
+/* Janelas baixas: o nome acompanha a altura e o bloco de texto nunca invade o cabeçalho */
+:global(.scenes-desktop) .name {
+  font-size: min(var(--fs-hero), 17vh);
+}
+
+@media (max-width: 1279px) {
+  :global(.scenes-desktop) .name {
+    font-size: min(clamp(3.6rem, 0.5rem + 8.6vw, 7rem), 17vh);
+  }
+}
+
+@media (max-height: 760px) {
+  :global(.scenes-desktop) .content {
+    top: calc(50% + var(--header-h) * 0.5);
+    translate: 0 -50%;
+  }
+
+  :global(.scenes-desktop) .headline {
+    margin-top: 1rem;
+  }
+
+  :global(.scenes-desktop) .intro {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  :global(.scenes-desktop) .ctas {
+    margin-top: 1.2rem;
+  }
+
+  :global(.scenes-desktop) .meta {
+    margin-top: 0.6rem;
   }
 }
