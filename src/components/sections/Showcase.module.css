@@ -71,7 +71,7 @@
   gap: 0.9rem;
 }
 
-.kicker > .mono:first-child {
+.kicker > :global(.mono):first-child {
   color: var(--violet-soft);
 }
 
@@ -113,7 +113,7 @@
   transition: color var(--dur-3) var(--ease-out);
 }
 
-.beats li .mono {
+.beats li :global(.mono) {
   flex: none;
   padding-top: 0.15rem;
   color: var(--text-3);
@@ -136,7 +136,7 @@
   color: var(--text);
 }
 
-.beats li[data-current] .mono {
+.beats li[data-current] :global(.mono) {
   color: var(--violet-soft);
 }
 
@@ -350,7 +350,7 @@
     transform var(--dur-2) var(--ease-out);
 }
 
-.tabs button .mono {
+.tabs button :global(.mono) {
   color: var(--text-3);
   font-size: 0.64rem;
 }
@@ -370,7 +370,7 @@
   color: var(--text);
 }
 
-.tabs button[aria-pressed='true'] .mono {
+.tabs button[aria-pressed='true'] :global(.mono) {
   color: var(--violet-soft);
 }
 

@@ -164,12 +164,13 @@
 .decisions li {
   display: grid;
   grid-template-columns: 2.5rem minmax(0, 1fr);
-  gap: 0.25rem 1rem;
+  align-content: start;
+  gap: 0.35rem 1rem;
   padding-block: 1.25rem;
   border-bottom: 1px solid var(--line);
 }
 
-.decisions .mono {
+.decisions :global(.mono) {
   grid-row: span 2;
   color: var(--violet-soft);
   padding-top: 0.3rem;

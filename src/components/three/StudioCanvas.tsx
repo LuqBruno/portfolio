@@ -34,11 +34,12 @@ function webglAvailable(): boolean {
  * - Movimento reduzido ou sem WebGL: nenhuma cena — ficam os quadros estáticos e as capturas.
  */
 export function StudioCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const hostRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = hostRef.current;
+    if (!container) return;
+    let canvas: HTMLCanvasElement | null = null;
     const root = document.documentElement;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     const desktop = window.matchMedia('(min-width: 860px)');
@@ -51,6 +52,9 @@ export function StudioCanvas() {
       cleanupWait();
       engine?.dispose();
       engine = null;
+      // um canvas novo a cada inicialização: o anterior teve o contexto liberado
+      canvas?.remove();
+      canvas = null;
       active.forEach((name) => root.classList.remove(`studio-${name}`));
       active.length = 0;
       root.classList.remove('studio-on');
@@ -87,11 +91,23 @@ export function StudioCanvas() {
 
       const [{ createEngine }, views] = await Promise.all([import('./engine'), import('./views')]);
       if (disposed) return;
+      canvas = document.createElement('canvas');
+      canvas.className = styles.canvas;
+      canvas.setAttribute('aria-hidden', 'true');
+      container.appendChild(canvas);
       const e = createEngine(canvas, tier);
       engine = e;
       hosts.forEach(([name, host]) => {
         e.addView(host, views[name]);
         active.push(name);
+      });
+      // Contexto perdido: volta às versões estáticas; se o navegador restaurar, as cenas são recriadas
+      e.onContextLost(() => {
+        active.forEach((name) => root.classList.remove(`studio-${name}`));
+        root.classList.remove('studio-on');
+      });
+      e.onContextRestored(() => {
+        if (!disposed) void boot();
       });
       e.onFirstFrame(() => {
         root.classList.add('studio-on');
@@ -111,5 +127,5 @@ export function StudioCanvas() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />;
+  return <div ref={hostRef} aria-hidden="true" />;
 }

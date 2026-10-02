@@ -9,12 +9,20 @@
   border-bottom: 1px solid transparent;
 }
 
-.header[data-scrolled],
-.header[data-open] {
+.header[data-scrolled] {
   background: rgb(8 8 11 / 0.78);
   border-bottom-color: var(--line-soft);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* Menu aberto: fundo sólido e SEM backdrop-filter — o filtro criaria um bloco de contenção
+   e prenderia o painel fixo à altura do cabeçalho */
+.header[data-open] {
+  background: var(--bg);
+  border-bottom-color: var(--line-soft);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .bar {
@@ -269,7 +277,7 @@
   line-height: 1.1;
 }
 
-.panelNav a .mono {
+.panelNav a :global(.mono) {
   color: var(--violet-soft);
 }
 

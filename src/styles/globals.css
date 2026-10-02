@@ -59,6 +59,8 @@ h1,
 h2,
 h3,
 h4,
+h5,
+h6,
 p,
 ul,
 ol,
@@ -78,7 +80,9 @@ ol {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 650;
   line-height: var(--lh-heading);

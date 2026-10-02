@@ -60,6 +60,39 @@ export function createEngine(canvas: HTMLCanvasElement, tier: Tier) {
   let last = 0;
   let start = 0;
   let firstFrame: (() => void) | null = null;
+  let lost = false;
+  let onLost: (() => void) | null = null;
+  let onRestored: (() => void) | null = null;
+  let shown = false;
+
+  /** O canvas só aparece enquanto alguma cena está na tela; fora delas fica limpo e oculto. */
+  const setShown = (value: boolean) => {
+    if (value === shown) return;
+    shown = value;
+    canvas.style.visibility = value ? 'visible' : 'hidden';
+    if (!value && !lost) {
+      renderer.setScissorTest(false);
+      renderer.clear(true, true, true);
+    }
+  };
+  canvas.style.visibility = 'hidden';
+
+  // Perda do contexto (GPU sob pressão, painéis embutidos): esconde o canvas e cede às versões estáticas
+  const handleLost = (event: Event) => {
+    event.preventDefault();
+    lost = true;
+    cancelAnimationFrame(frame);
+    frame = 0;
+    canvas.style.visibility = 'hidden';
+    shown = false;
+    onLost?.();
+  };
+  const handleRestored = () => {
+    lost = false;
+    onRestored?.();
+  };
+  canvas.addEventListener('webglcontextlost', handleLost);
+  canvas.addEventListener('webglcontextrestored', handleRestored);
 
   const io = new IntersectionObserver(
     (entries) => {
@@ -75,7 +108,11 @@ export function createEngine(canvas: HTMLCanvasElement, tier: Tier) {
 
   function render(now: number) {
     frame = 0;
-    if (document.hidden || visible.size === 0) return;
+    if (lost) return;
+    if (document.hidden || visible.size === 0) {
+      setShown(false);
+      return;
+    }
     if (!start) start = now;
     const dt = Math.min(0.05, last ? (now - last) / 1000 : 1 / 60);
     last = now;
@@ -87,11 +124,13 @@ export function createEngine(canvas: HTMLCanvasElement, tier: Tier) {
     renderer.clear(true, true, true);
     renderer.setScissorTest(true);
 
+    let drawn = 0;
     visible.forEach((host) => {
       const view = views.get(host);
       if (!view) return;
       const r = host.getBoundingClientRect();
       if (r.width < 2 || r.height < 2 || r.bottom < 0 || r.top > vh || r.right < 0 || r.left > vw) return;
+      drawn++;
       const x = r.left;
       const y = vh - r.bottom;
       renderer.setViewport(x, y, r.width, r.height);
@@ -102,6 +141,7 @@ export function createEngine(canvas: HTMLCanvasElement, tier: Tier) {
       renderer.clearDepth();
       renderer.render(view.scene, view.camera);
     });
+    setShown(drawn > 0);
 
     if (firstFrame) {
       firstFrame();
@@ -111,6 +151,8 @@ export function createEngine(canvas: HTMLCanvasElement, tier: Tier) {
   }
 
   function wake() {
+    if (lost) return;
+    if (!visible.size) setShown(false);
     if (!frame && !document.hidden && visible.size) {
       last = 0;
       frame = requestAnimationFrame(render);
@@ -135,12 +177,20 @@ export function createEngine(canvas: HTMLCanvasElement, tier: Tier) {
       views.set(host, factory(ctx));
       io.observe(host);
     },
+    onContextLost(cb: () => void) {
+      onLost = cb;
+    },
+    onContextRestored(cb: () => void) {
+      onRestored = cb;
+    },
     onFirstFrame(cb: () => void) {
       firstFrame = cb;
       wake();
     },
     dispose() {
       cancelAnimationFrame(frame);
+      canvas.removeEventListener('webglcontextlost', handleLost);
+      canvas.removeEventListener('webglcontextrestored', handleRestored);
       io.disconnect();
       window.removeEventListener('resize', onResize);
       window.removeEventListener('pointermove', onPointer);
