@@ -599,3 +599,91 @@
     object-position: top center;
   }
 }
+
+/* Celular: tudo cabe entre o cabeçalho e a navegação inferior, sem sobreposição */
+@media (max-width: 859px) {
+  :global(.scenes-on) .chapters {
+    inset: calc(var(--header-h) + 0.5rem) var(--gutter) 4.5rem;
+  }
+
+  :global(.scenes-on) .chapter {
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  :global(.scenes-on) .stage3d {
+    height: clamp(170px, 30svh, 280px);
+  }
+
+  :global(.scenes-on) .visual .shots {
+    height: clamp(170px, 30svh, 280px);
+  }
+
+  :global(.scenes-on) .visual {
+    height: auto;
+  }
+
+  :global(.scenes-on) .orb {
+    width: min(100%, 30svh);
+  }
+
+  :global(.scenes-on) .info {
+    gap: 0.4rem;
+    align-content: start;
+    overflow: hidden;
+  }
+
+  :global(.scenes-on) .kicker :global(.badge) {
+    font-size: 0.62rem;
+    padding-block: 0.25rem;
+  }
+
+  :global(.scenes-on) .name {
+    font-size: clamp(1.6rem, 1rem + 3.2vw, 2.1rem);
+  }
+
+  :global(.scenes-on) .category {
+    font-size: 0.92rem;
+  }
+
+  :global(.scenes-on) .summary {
+    -webkit-line-clamp: 2;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  :global(.scenes-on) .beats li {
+    font-size: 0.85rem;
+  }
+
+  :global(.scenes-on) .links {
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+    margin-top: 0.35rem;
+  }
+
+  :global(.scenes-on) .links :global(.btn) {
+    min-height: 2.6rem;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  /* um link externo no capítulo; o outro fica no case completo */
+  :global(.scenes-on) .links :global(.btn):nth-child(n + 3) {
+    display: none;
+  }
+
+  :global(.scenes-on) .nav {
+    bottom: 0.75rem;
+    padding-top: 0.6rem;
+    background: linear-gradient(180deg, transparent, var(--bg) 35%);
+  }
+}
+
+@media (max-width: 859px) and (max-height: 700px) {
+  :global(.scenes-on) .summary,
+  :global(.scenes-on) .category {
+    display: none;
+  }
+}
