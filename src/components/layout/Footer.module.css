@@ -1,0 +1,114 @@
+.footer {
+  border-top: 1px solid var(--line-soft);
+  background: #060608;
+}
+
+.inner {
+  display: grid;
+  gap: 2.5rem;
+  padding-block: 3.5rem 2rem;
+}
+
+.name {
+  display: inline-flex;
+  align-items: flex-end;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.5rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.dot {
+  width: 0.16em;
+  height: 0.16em;
+  margin: 0 0 0.12em 0.06em;
+  border-radius: 50%;
+  background: var(--violet);
+}
+
+.role {
+  margin-top: 0.6rem;
+  color: var(--text-2);
+}
+
+.nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+
+.nav a {
+  display: inline-block;
+  padding-block: 0.5rem;
+  color: var(--text-2);
+  font-weight: 550;
+  transition: color var(--dur-2);
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-soft);
+  color: var(--text-3);
+}
+
+.bottom .mono {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  color: var(--text-2);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.topIcon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition:
+    border-color var(--dur-2),
+    transform var(--dur-2) var(--ease-out);
+}
+
+.topIcon svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.top:hover {
+  color: var(--text);
+}
+
+.top:hover .topIcon {
+  border-color: var(--violet);
+  transform: translateY(-3px);
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .bottom {
+    grid-column: 1 / -1;
+  }
+}

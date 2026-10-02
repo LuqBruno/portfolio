@@ -1,0 +1,155 @@
+.contact {
+  overflow: clip;
+  background: #07070a;
+  padding-bottom: clamp(5rem, 10vw, 8rem);
+}
+
+.art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+:global(.studio-contact) .contact {
+  background: transparent;
+}
+
+.still {
+  position: absolute;
+  inset: 0;
+  transition: opacity 900ms var(--ease-out);
+}
+
+:global(.studio-contact) .still {
+  opacity: 0;
+}
+
+.art img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  object-position: 85% 100%;
+  opacity: 0.45;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 55%), linear-gradient(0deg, #000 70%, transparent);
+  mask-composite: intersect;
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  gap: 1.75rem;
+}
+
+.title {
+  font-size: var(--fs-display);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  max-width: 13ch;
+}
+
+.text {
+  max-width: 36rem;
+  color: var(--text-2);
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+
+.actions :global(.copy-status) {
+  flex-basis: 100%;
+  min-height: 1.5em;
+  color: var(--violet-soft);
+  font-size: 0.9rem;
+}
+
+.channels {
+  display: grid;
+  max-width: 48rem;
+  border-top: 1px solid var(--line);
+}
+
+.channels li {
+  border-bottom: 1px solid var(--line);
+}
+
+.channel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'label arrow'
+    'value arrow';
+  align-items: center;
+  gap: 0.2rem 1rem;
+  padding-block: 1.1rem;
+  transition: padding var(--dur-3) var(--ease-out);
+}
+
+.channelLabel {
+  grid-area: label;
+  color: var(--text-3);
+}
+
+.channelValue {
+  grid-area: value;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 0.95rem + 1vw, 1.6rem);
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.channelArrow {
+  grid-area: arrow;
+  width: 1.3rem;
+  height: 1.3rem;
+  color: var(--text-3);
+  transition:
+    transform var(--dur-2) var(--ease-out),
+    color var(--dur-2);
+}
+
+@media (hover: hover) {
+  a.channel:hover {
+    padding-left: 0.6rem;
+  }
+
+  a.channel:hover .channelArrow {
+    transform: translate(2px, -2px);
+    color: var(--violet-soft);
+  }
+
+  a.channel:hover .channelValue {
+    color: var(--violet-soft);
+  }
+}
+
+@media (min-width: 768px) {
+  .channel {
+    grid-template-columns: 9rem minmax(0, 1fr) auto;
+    grid-template-areas: 'label value arrow';
+  }
+}
+
+@media (min-width: 1024px) {
+  .art img {
+    opacity: 0.9;
+    width: 70%;
+    min-width: 0;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: right bottom;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 35%);
+  }
+}

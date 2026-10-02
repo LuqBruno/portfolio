@@ -1,0 +1,140 @@
+.head {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: start;
+}
+
+.columns {
+  display: grid;
+  gap: 3.5rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.colTitle {
+  margin-bottom: 1.5rem;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--tracking-mono);
+  font-weight: 500;
+}
+
+/* Timeline vertical com trilho que se preenche na rolagem */
+.timeline {
+  --draw: 1;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.entries {
+  display: grid;
+  gap: 2.75rem;
+}
+
+.rail {
+  position: absolute;
+  left: 5px;
+  top: 0.4rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+.rail::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--violet-soft), var(--violet) 60%, transparent);
+  transform-origin: top;
+  transform: scaleY(var(--draw));
+}
+
+.entry {
+  position: relative;
+}
+
+.node {
+  position: absolute;
+  left: calc(-2rem + 1px);
+  top: 0.35rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--violet-soft);
+  background: var(--bg);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 14px rgb(139 92 246 / 0.6);
+}
+
+.period {
+  color: var(--violet-soft);
+}
+
+.role {
+  margin-top: 0.6rem;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.03em;
+}
+
+.org {
+  margin-top: 0.25rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.points {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  color: var(--text-2);
+}
+
+.points li {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.points li::before {
+  content: '';
+  flex: none;
+  width: 0.7rem;
+  height: 1px;
+  margin-top: 0.85em;
+  background: var(--text-3);
+}
+
+.education {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.education li {
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.eduTitle {
+  margin-top: 0.4rem;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+}
+
+.eduNote {
+  color: var(--text-2);
+  font-weight: 500;
+}
+
+@media (min-width: 1024px) {
+  .head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .head > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .columns {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 6rem;
+  }
+}

@@ -1,0 +1,154 @@
+
+.body {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.profiles {
+  display: grid;
+  border-top: 1px solid var(--line);
+  margin-block: 0.5rem 0.75rem;
+}
+
+.profiles > div {
+  display: grid;
+  gap: 0.2rem 1.5rem;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.profiles dt {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.profiles dd {
+  color: var(--text-2);
+}
+
+/* Arquitetura em camadas: frontend → API → banco */
+.archWrap {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.arch {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.layer {
+  position: relative;
+  display: grid;
+  gap: 0.3rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.01));
+}
+
+.layer .mono {
+  color: var(--violet-soft);
+  font-size: 0.64rem;
+}
+
+.layer strong {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.layerDetail {
+  color: var(--text-2);
+  font-size: 0.92rem;
+}
+
+.layer:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -1.75rem;
+  width: 1px;
+  height: 1.75rem;
+  background: linear-gradient(180deg, var(--violet), rgb(139 92 246 / 0.25));
+}
+
+.footer {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.role {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.roleText {
+  font-size: var(--fs-lead);
+  color: var(--text);
+}
+
+.teamTitle {
+  margin-top: 0.5rem;
+  color: var(--text-3);
+}
+
+.team {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+}
+
+.team li {
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  color: var(--text-2);
+  font-size: 0.86rem;
+}
+
+.team li.me {
+  border-color: rgb(139 92 246 / 0.6);
+  color: var(--text);
+}
+
+.links {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 4rem;
+  }
+
+  .profiles > div {
+    grid-template-columns: 9rem 1fr;
+  }
+
+  .arch {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+
+  .layer:not(:last-child)::after {
+    left: auto;
+    right: -2.5rem;
+    top: 50%;
+    bottom: auto;
+    width: 2.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--violet), rgb(139 92 246 / 0.3));
+  }
+
+  .footer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 4rem;
+    align-items: start;
+  }
+}

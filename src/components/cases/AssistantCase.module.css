@@ -1,0 +1,309 @@
+.assistant {
+  overflow: clip;
+}
+
+.ambient {
+  position: absolute;
+  right: -15%;
+  top: 8%;
+  width: 70%;
+  height: 50%;
+  background: radial-gradient(closest-side, rgb(91 33 182 / 0.2), transparent);
+  pointer-events: none;
+}
+
+.intro {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.problem {
+  display: grid;
+  gap: 2rem;
+  align-content: start;
+}
+
+
+
+.lead {
+  max-width: 44rem;
+  margin: -0.5rem 0 2rem;
+  color: var(--text-2);
+}
+
+/* Módulos */
+.modules {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.module {
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.moduleIndex {
+  color: var(--violet-soft);
+  font-size: 0.66rem;
+}
+
+.moduleName {
+  margin: 0.6rem 0 1.25rem;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.03em;
+}
+
+/* Arquitetura */
+.arch {
+  display: grid;
+  gap: 1rem;
+}
+
+.flow {
+  display: grid;
+  gap: 2.25rem;
+  counter-reset: node;
+}
+
+.node {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.01));
+}
+
+.node strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.node span {
+  color: var(--text-2);
+  font-size: 0.9rem;
+}
+
+.node em {
+  font-style: normal;
+  margin-top: 0.45rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--r-sm);
+  background: rgb(255 255 255 / 0.03);
+  border: 1px dashed var(--line);
+  color: var(--text-2);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.node em b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.store::before {
+  content: '◆ ';
+  color: var(--violet);
+  font-size: 0.7em;
+}
+
+.nodeBridge,
+.nodeModel {
+  border-color: rgb(139 92 246 / 0.45);
+  background: linear-gradient(180deg, rgb(124 58 237 / 0.12), rgb(124 58 237 / 0.03));
+}
+
+/* Setas do fluxo (vertical no celular) */
+.flow > li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 1.6rem;
+  bottom: -2.25rem;
+  width: 1px;
+  height: 2.25rem;
+  background: linear-gradient(180deg, var(--violet), rgb(139 92 246 / 0.2));
+}
+
+.flow > li:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: calc(1.6rem - 4px);
+  bottom: -0.6rem;
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid var(--violet);
+  border-bottom: 1px solid var(--violet);
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+.nodeDesktop {
+  border-style: dashed;
+  margin-bottom: 1.25rem;
+}
+
+.nodeDesktop::after {
+  content: '';
+  position: absolute;
+  left: 1.6rem;
+  bottom: -1.25rem;
+  width: 1px;
+  height: 1.25rem;
+  background: var(--line);
+}
+
+/* Decisões */
+.decisions {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.decisions li {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 0.25rem 1rem;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.decisions .mono {
+  grid-row: span 2;
+  color: var(--violet-soft);
+  padding-top: 0.3rem;
+}
+
+.decisions h5 {
+  font-size: var(--fs-h4);
+}
+
+.decisions p {
+  color: var(--text-2);
+}
+
+/* Tecnologias */
+.tech {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.tech > div {
+  display: grid;
+  gap: 0.6rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.tech dt {
+  color: var(--text-3);
+  padding-top: 0.4rem;
+}
+
+/* Estado */
+.states {
+  display: grid;
+  gap: 1rem;
+}
+
+.state {
+  padding: 1.25rem 1.4rem 0.75rem;
+}
+
+.stateLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.stateLabel svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  color: var(--violet-soft);
+}
+
+.state[data-tier='1'] {
+  border-style: dashed;
+}
+
+.state[data-tier='2'] {
+  background: transparent;
+  border-style: dotted;
+}
+
+.state .list {
+  border-top: 0;
+}
+
+.state .list li:last-child {
+  border-bottom: 0;
+}
+
+.fine {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 50rem;
+  margin-top: 2rem;
+  color: var(--text-2);
+  font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+  .modules {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .decisions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem;
+  }
+
+  .tech > div {
+    grid-template-columns: minmax(12rem, 0.4fr) 1fr;
+  }
+
+  .states {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .problem {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3rem;
+  }
+
+  /* Fluxo horizontal */
+  .flow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+
+  .flow > li:not(:last-child)::after {
+    left: auto;
+    right: -2.5rem;
+    top: 2.1rem;
+    bottom: auto;
+    width: 2.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--violet), rgb(139 92 246 / 0.35));
+  }
+
+  .flow > li:not(:last-child)::before {
+    left: auto;
+    right: -2.45rem;
+    top: calc(2.1rem - 4px);
+    bottom: auto;
+    transform: rotate(-45deg);
+  }
+
+  .nodeDesktop {
+    width: calc((100% - 7.5rem) / 4);
+    margin-left: calc((100% - 7.5rem) / 4 + 2.5rem);
+  }
+}

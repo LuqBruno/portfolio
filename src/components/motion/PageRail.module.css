@@ -1,0 +1,68 @@
+.rail {
+  position: fixed;
+  left: clamp(0.75rem, 1.6vw, 1.75rem);
+  top: 50%;
+  z-index: 40;
+  height: min(46vh, 26rem);
+  width: 9px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  display: none;
+}
+
+.track {
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--violet-soft), var(--violet));
+  transform-origin: top;
+  transform: scaleY(0);
+  box-shadow: 0 0 10px rgb(139 92 246 / 0.7);
+}
+
+.dots {
+  position: absolute;
+  inset: 0;
+}
+
+.dots li {
+  position: absolute;
+  left: 1px;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  border: 1px solid var(--text-3);
+  background: var(--bg);
+  transition:
+    transform var(--dur-3) var(--ease-out),
+    background-color var(--dur-3),
+    border-color var(--dur-3);
+}
+
+.dots li[data-past] {
+  border-color: var(--violet);
+  background: var(--violet);
+}
+
+.dots li[data-active] {
+  border-color: var(--violet-soft);
+  background: var(--violet-soft);
+  transform: scale(1.5);
+  box-shadow: 0 0 10px rgb(196 181 253 / 0.9);
+}
+
+@media (min-width: 1100px) {
+  .rail {
+    display: block;
+  }
+}

@@ -1,0 +1,319 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--header-h);
+  transition:
+    background-color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+
+.header[data-scrolled],
+.header[data-open] {
+  background: rgb(8 8 11 / 0.78);
+  border-bottom-color: var(--line-soft);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+
+.bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Marca */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: linear-gradient(160deg, var(--surface-2), var(--bg));
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 -2px 0 var(--violet);
+  transition: border-color var(--dur-2);
+}
+
+.brand:hover .brandMark {
+  border-color: var(--violet);
+}
+
+.brandName {
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.brandDot {
+  width: 0.32em;
+  height: 0.32em;
+  margin: 0 0 0.22em 0.12em;
+  border-radius: 50%;
+  background: var(--violet);
+}
+
+/* Navegação desktop */
+.nav {
+  display: none;
+}
+
+.nav ul {
+  display: flex;
+  gap: 0.15rem;
+}
+
+.nav a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-2);
+  font-size: 0.92rem;
+  font-weight: 550;
+  border-radius: var(--r-pill);
+  transition: color var(--dur-2);
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0.2rem;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--violet);
+  opacity: 0;
+  transform: scale(0);
+  transition:
+    opacity var(--dur-2),
+    transform var(--dur-2) var(--ease-out);
+}
+
+.nav a:hover,
+.nav a[aria-current] {
+  color: var(--text);
+}
+
+.nav a[aria-current]::after {
+  opacity: 1;
+  transform: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Seletor de idioma */
+.lang ul {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: rgb(255 255 255 / 0.02);
+}
+
+.lang a {
+  display: grid;
+  place-items: center;
+  min-width: 2.15rem;
+  height: 2rem;
+  padding-inline: 0.45rem;
+  border-radius: var(--r-pill);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  transition:
+    background-color var(--dur-2),
+    color var(--dur-2);
+}
+
+.lang a:hover {
+  color: var(--text);
+}
+
+.lang a.langActive {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.cta {
+  display: none;
+  min-height: 2.6rem;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
+}
+
+/* Botão do menu */
+.toggle {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-right: -0.4rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.toggleLines {
+  position: relative;
+  width: 1.25rem;
+  height: 0.75rem;
+}
+
+.toggleLines span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.6px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform var(--dur-2) var(--ease-out),
+    top var(--dur-2) var(--ease-out);
+}
+
+.toggleLines span:first-child {
+  top: 0;
+}
+
+.toggleLines span:last-child {
+  top: calc(100% - 1.6px);
+}
+
+.header[data-open] .toggleLines span:first-child {
+  top: calc(50% - 0.8px);
+  transform: rotate(45deg);
+}
+
+.header[data-open] .toggleLines span:last-child {
+  top: calc(50% - 0.8px);
+  transform: rotate(-45deg);
+}
+
+/* Painel móvel */
+.panel {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  overflow-y: auto;
+  background:
+    radial-gradient(80% 50% at 100% 100%, rgb(124 58 237 / 0.18), transparent 70%),
+    var(--bg);
+  animation: panel-in var(--dur-3) var(--ease-out);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.panelInner {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.5rem;
+  padding-block: 2rem 2.5rem;
+}
+
+.panelNav li {
+  border-bottom: 1px solid var(--line-soft);
+  animation: item-in var(--dur-3) var(--ease-out) both;
+  animation-delay: calc(var(--i) * 45ms + 60ms);
+}
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.panelNav a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 8vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.panelNav a .mono {
+  color: var(--violet-soft);
+}
+
+.panelNav a[aria-current] {
+  color: var(--violet-soft);
+}
+
+.panelFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .cta {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    display: block;
+  }
+
+  .toggle,
+  .panel {
+    display: none !important;
+  }
+
+  .actions {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand {
+    gap: 0.5rem;
+    font-size: 0.98rem;
+  }
+
+  .lang a {
+    min-width: 2rem;
+    padding-inline: 0.35rem;
+  }
+}
