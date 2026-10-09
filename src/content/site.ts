@@ -21,8 +21,7 @@ export const person = {
 
 export const projectLinks = {
   marega: {
-    site: 'https://luqbruno.github.io/marega-vargas-advocacia/',
-    code: 'https://github.com/LuqBruno/marega-vargas-advocacia',
+    site: 'https://www.amvadvocacia.com.br',
   },
   unesc: {
     organization: 'https://github.com/Centra-de-Compras-Unesc',

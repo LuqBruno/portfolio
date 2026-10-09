@@ -45,7 +45,6 @@ export function Showcase({ dict }: { dict: Dictionary }) {
       tech: ['nextdotjs', 'react', 'typescript', 'css'],
       links: [
         { href: projectLinks.marega.site, label: l.visit, icon: 'arrowUpRight' },
-        { href: projectLinks.marega.code, label: l.code, icon: 'github' },
       ],
       beats: [`${w.marega.structureTitle}: ${w.marega.structure.join(' · ')}`, w.marega.captionDesktop, w.marega.captionTeam, w.marega.captionMobile],
     },

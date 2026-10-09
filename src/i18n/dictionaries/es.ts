@@ -98,7 +98,7 @@ export const es: Dictionary = {
       tagline: 'Advocacia Especializada',
       category: 'Sitio institucional',
       context: 'Proyecto por encargo',
-      status: 'Versión pública en validación final',
+      status: 'Publicado en dominio propio',
       summary:
         'Sitio para un despacho de abogados con dos abogadas y áreas de práctica distintas, pensado para que cada visitante encuentre rápidamente a la especialista adecuada y se ponga en contacto.',
       challengeTitle: 'Desafío',

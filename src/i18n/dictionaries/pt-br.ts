@@ -100,7 +100,7 @@ export const ptBR = {
       tagline: 'Advocacia Especializada',
       category: 'Site institucional',
       context: 'Projeto contratado',
-      status: 'Versão pública em validação final',
+      status: 'Publicado em domínio próprio',
       summary:
         'Site para um escritório de advocacia com duas advogadas e áreas de atuação distintas, pensado para que cada visitante encontre rapidamente a especialista certa e inicie o contato.',
       challengeTitle: 'Desafio',

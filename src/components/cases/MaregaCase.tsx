@@ -68,11 +68,6 @@ export function MaregaCase({ dict }: { dict: Dictionary }) {
                 <Icon name="arrowUpRight" data-arrow="diag" />
                 <span className="sr-only">{dict.a11y.newTab}</span>
               </a>
-              <a className="btn btn--ghost" href={projectLinks.marega.code} target="_blank" rel="noopener noreferrer">
-                <Icon name="github" />
-                {l.code}
-                <span className="sr-only">{dict.a11y.newTab}</span>
-              </a>
             </div>
           </div>
         </div>

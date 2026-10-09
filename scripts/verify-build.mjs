@@ -47,7 +47,7 @@ for (const [locale, exp] of Object.entries(locales)) {
   check(html.includes(`https://wa.me/5548996601950?text=${encodeURIComponent(exp.wa)}`), 'mensagem de WhatsApp codificada no idioma');
   check(html.includes('mailto:brunoluquers@gmail.com'), 'link de e-mail');
   check(html.includes('https://github.com/LuqBruno'), 'GitHub');
-  check(html.includes('https://luqbruno.github.io/marega-vargas-advocacia/'), 'site Maréga e Vargas');
+  check(html.includes('https://www.amvadvocacia.com.br'), 'site Maréga e Vargas');
   check(html.includes('https://github.com/Centra-de-Compras-Unesc/central-compras-frontend') && html.includes('central-compras-backend'), 'repositórios da Central de Compras');
   for (const word of exp.foreign) check(!visible.includes(word), `sem texto de outro idioma: “${word}”`);
   const hreflangs = ['pt-BR', 'en', 'es'].every((l) => html.includes(`hrefLang="${l}"`) || html.includes(`hreflang="${l}"`));

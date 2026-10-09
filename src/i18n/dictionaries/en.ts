@@ -98,7 +98,7 @@ export const en: Dictionary = {
       tagline: 'Advocacia Especializada',
       category: 'Institutional website',
       context: 'Commissioned project',
-      status: 'Public version under final review',
+      status: 'Published on its own domain',
       summary:
         'A website for a law firm with two attorneys and distinct practice areas, designed so every visitor quickly finds the right specialist and gets in touch.',
       challengeTitle: 'Challenge',
